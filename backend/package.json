@@ -12,6 +12,7 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.11.2",
     "bcryptjs": "^3.0.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -20,6 +21,9 @@
     "jsonwebtoken": "^9.0.3",
     "mongodb": "^7.0.0",
     "mongoose": "^9.0.2",
-    "nodemon": "^3.1.11"
+    "multer": "^2.0.2",
+    "nodemon": "^3.1.11",
+    "react-hot-toast": "^2.6.0",
+    "react-redux": "^9.2.0"
   }
 }

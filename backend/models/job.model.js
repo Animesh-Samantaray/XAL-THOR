@@ -12,6 +12,10 @@ const jobSchema=new mongoose.Schema({
      requirements:[{
         type:String,
      }],
+     experienceLevel:{
+         type:Number,
+         required:true
+     },
      salary:{
         type:Number,
         required:true
@@ -46,4 +50,5 @@ const jobSchema=new mongoose.Schema({
      ]
 },{timestamps:true});
 
-export const Job=mongoose.model('Job',jobSchema);
+ const Job=mongoose.model('Job',jobSchema);
+ export default Job;
