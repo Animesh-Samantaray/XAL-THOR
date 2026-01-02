@@ -4,27 +4,28 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useSelector } from "react-redux";
+import store from "@/redux/store.js";
+import { LogOut } from "lucide-react";
+import { User2 } from "lucide-react";
 
 const Navbar = () => {
-  const user=false;
+  const user=useSelector(store=>store.auth);
   const navigate=useNavigate();
   return (
     <div className="bg-white">
       <div className="flex items-center justify-between mx-auto max-w-7xl h-16 px-14">
         <div>
           <h1 className="text-2xl font-bold">
-            Job<span className="text-[#F83002]">Portal</span>
+            Job<span className="text-[#F83002]">Hub</span>
           </h1>
         </div>
 
         <div className="flex items-center  gap-12">
           <ul className="flex font-medium items-center gap-5">
-            {/* <li><Link>Home</Link></li>
-                        <li><Link>Jobs</Link></li>
-                        <li><Link>Browse</Link></li> */}
-            <li>Home</li>
-            <li>Jobs</li>
-            <li>Browse</li>
+            <li><Link to='/'>Home</Link></li>
+            <li><Link to='/jobs'>Jobs</Link></li>
+            <li><Link to='/browse'>Browse</Link></li>
           </ul>
 
 {
@@ -34,28 +35,41 @@ const Navbar = () => {
                                 <Link to="/signup"><Button className="bg-[#6A38C2] hover:bg-[#5b30a6]">Signup</Button></Link>
                             </div>
   ):(
-
-          <Popover>
-            <PopoverTrigger asChild>
-              <Avatar className='cursor-pointer'>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-              </Avatar>
-            </PopoverTrigger>
-            <PopoverContent className='w-80'>
-             <div>
-                <Avatar className='cursor-pointer '>
-                <AvatarImage
-                  src="https://github.com/shadcn.png"
-                  alt="@shadcn"
-                />
-             </Avatar>
-             <h4 className="font-medium">Animesh</h4>
-             </div>
-            </PopoverContent>
-          </Popover>)
+        <Popover>
+                        <PopoverTrigger asChild>
+                                    <Avatar className="cursor-pointer">
+                                        <AvatarImage src={user?.profile?.profilePhoto || 'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'} alt="@shadcn" />
+                                    </Avatar>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-80">
+                                    <div className=''>
+                                        <div className='flex gap-2 space-y-2'>
+                                            <Avatar className="cursor-pointer">
+                                                <AvatarImage src={'https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png'} alt="@shadcn" />
+                                            </Avatar>
+                                            <div>
+                                                <h4 className='font-medium'>{'Animesh'}</h4>
+                                                <p className='text-sm text-muted-foreground'>{'Full stack web developer'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col my-2 text-gray-600'>
+                                            {
+                                                user && user.role === 'student' && (
+                                                    <div className='flex w-fit items-center gap-2 cursor-pointer'>
+                                                        <User2 />
+                                                        <Button variant="link"> <Link to="/progile">View Profile</Link></Button>
+                                                    </div>
+                                                )
+                                            }
+                                            <div className='flex w-fit items-center gap-2 cursor-pointer'>
+                                                <LogOut/>
+                                                <Button  variant="link">Logout</Button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </PopoverContent>
+        </Popover>
+                          )
 }
         </div>
       </div>

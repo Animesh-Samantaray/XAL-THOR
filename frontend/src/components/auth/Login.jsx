@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "@/axiosInstance.js";
 import {toast} from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/authSlice";
 
 const Login = () => {
   const navigate = useNavigate();
-
+    const dispatch=useDispatch();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -20,10 +22,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      await api.post("/user/login", form);
+     const res= await api.post("/user/login", form);
 
-      toast.success("Login successful 🚀");
+      if(res.data.success){
+        dispatch(setUser(res.data.user))
+        toast.success("Login successful 🚀");
       navigate("/");
+      }
     } catch (error) {
       toast.error(
         error.response?.data?.message || "Login failed ❌"
